@@ -1,14 +1,55 @@
+:root {
+    --main-text: #591e78;
+}
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-Link {
-    /* Your button styles here */
-    /* make simple button */
-    padding: 2rem 5rem;
-    border: 1px solid #000;
-    background-color: #fff;
-    color: #000;
+.mainButton {
+    margin-top: 8rem;
+}
+
+@media screen and (min-width: 1024px){
+    .icon-news{
+        width: 6rem;
+        height: 6rem;
+    }
+
+    .icon-nav{
+        width: 6rem;
+        height: 6rem;
+    }
+    
+    .newsButton {
+        font-size: 2.5rem;
+        display: inline-block;
+        padding: 6rem 8rem;
+        border: 2px solid #000;
+        background-color: #fff;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+        color: var(--main-text);
+        margin-right: 1rem;
+        border-radius: 15px;
+        border: 4px solid;
+    }
+    
+    .navButton {
+        font-size: 2.5rem;
+        display: inline-block;
+        padding: 6rem 8rem;
+        border: 2px solid #000;
+        background-color: #fff;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+        color: var(--main-text);
+        margin-left: 1rem;
+        border-radius: 15px;
+        border: 4px solid;
+    }      
 }
