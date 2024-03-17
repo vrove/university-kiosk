@@ -1,0 +1,40 @@
+:root {
+    --main-text: #591e78;
+}
+
+.navbar {
+    color: var(--main-text);
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-color: var(--main-text);
+    border-radius: 15px;
+    border-width: 2px;
+    padding: 2rem 4rem;
+    background-color: white;
+    margin-bottom: 2.5rem;
+}
+
+.nav-items li {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.maps-main {
+    width: 130vh;
+    height: 80vh;
+    border-radius: 25px;
+    margin: 0 auto;
+    margin-top: 3rem;
+    margin-bottom: 5rem;
+    box-shadow: 0 0 10px 0 var(--main-text);
+    z-index: 1;
+}
+
+.nav-button{
+    margin: 5px;
+    padding: 1.5rem 2.5rem;
+    background-color: bisque;
+    border-radius: 15px;
+}
