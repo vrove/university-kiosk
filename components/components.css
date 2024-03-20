@@ -2,6 +2,14 @@
     --main-text: #591e78;
 }
 
+.leaflet-container a.leaflet-popup-close-button{
+    font-size: 60px;
+}
+
+.btn{
+    text-align: center;
+}
+
 .navbar {
     color: var(--main-text);
     position: fixed;
@@ -11,7 +19,7 @@
     border-color: var(--main-text);
     border-radius: 15px;
     border-width: 2px;
-    padding: 2rem 4rem;
+    padding: 2rem 2rem;
     background-color: white;
     margin-bottom: 2.5rem;
 }
@@ -35,6 +43,134 @@
 .nav-button{
     margin: 5px;
     padding: 1.5rem 2.5rem;
-    background-color: bisque;
+    background-color: var(--main-text);
     border-radius: 15px;
+    color: white;
+}
+
+.back-button{
+    margin: 5px;
+    padding: 1.5rem 2.5rem;
+    background-color: var(--main-text);
+    border-radius: 15px;
+    color: white;
+    position: fixed;
+    top: 4rem;
+    right: 4.5rem;
+    z-index: 2;
+    font: bold;
+}
+
+.btn-view-area {
+    font-size: large;
+    padding: 12px;
+    border-radius: 5px;
+    color: white;
+    background-color: var(--main-text);
+}
+
+.search-box{
+    margin: 5px;
+    padding: 0.5rem 1rem;
+    background-color: var(--main-text);
+    border-radius: 15px;
+    color: white;
+    position: fixed;
+    top: 4rem;
+    left: 8rem;
+    z-index: 2;
+    font: bold;
+}
+
+.btn-gedung{
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.btn-rumah{
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+@media screen and (min-height: 821px) {
+    :root {
+        --main-text: #591e78;
+    }
+    
+    .btn{
+        text-align: center;
+    }
+    
+    .navbar {
+        color: var(--main-text);
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        border-color: var(--main-text);
+        border-radius: 15px;
+        border-width: 2px;
+        padding: 2rem 2rem;
+        background-color: white;
+        margin-bottom: 2.5rem;
+    }
+    
+    .nav-items li {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    
+    .maps-main {
+        width: 130vh;
+        height: 80vh;
+        border-radius: 25px;
+        margin: 0 auto;
+        margin-top: 3rem;
+        margin-bottom: 5rem;
+        box-shadow: 0 0 10px 0 var(--main-text);
+        z-index: 1;
+    }
+    
+    .nav-button{
+        margin: 5px;
+        padding: 1.5rem 2.5rem;
+        background-color: var(--main-text);
+        border-radius: 15px;
+        color: white;
+    }
+    
+    .back-button{
+        margin: 5px;
+        padding: 1.5rem 2.5rem;
+        background-color: var(--main-text);
+        border-radius: 15px;
+        color: white;
+        position: fixed;
+        top: 4rem;
+        right: 24rem;
+        z-index: 2;
+        font: bold;
+    }
+
+    .search-box{
+        margin: 5px;
+        padding: 0.5rem 1rem;
+        background-color: var(--main-text);
+        border-radius: 15px;
+        color: white;
+        position: fixed;
+        top: 4rem;
+        left: 27rem;
+        z-index: 2;
+        font: bold;
+    }
+    
+    .btn-view-area {
+        font-size: large;
+        padding: 12px;
+        border-radius: 5px;
+        color: white;
+        background-color: var(--main-text);
+    }
+    
 }
