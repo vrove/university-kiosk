@@ -15,7 +15,7 @@ const Navbar = () => {
             <button className="btn btn-primary">Gedung Universitas</button>
             </li>
             <li className="font-bold nav-button">
-              <button className="btn btn-primary">Login</button>
+              <button className="btn btn-primary">Rumah Dosen</button>
             </li>
           </ul>
     </nav>
