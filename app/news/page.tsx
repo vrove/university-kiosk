@@ -1,31 +1,24 @@
 import React from 'react';
 import './news.css';
+import BackButton from '@/components/BackButton';
+import news from '@/components/data-example/berita';
+import Link from 'next/link';
 
 const Page = () => {
-  const news = [
-    {
-      title: 'News 1',
-      content: 'This is the content of news 1.',
-    },
-    {
-      title: 'News 2',
-      content: 'This is the content of news 2.',
-    },
-    {
-      title: 'News 3',
-      content: 'This is the content of news 3.',
-    },
-  ];
+  const reversedNews = news.slice().reverse(); 
 
   return (
     <div>
-      <h1>News Page</h1>
-      {news.map((item, index) => (
-        <div key={index} className='news'>
-          <h2>{item.title}</h2>
-          <p>{item.content}</p>
-        </div>
-      ))}
+      <div className='news-container'>
+        {reversedNews.map((item) => (
+          <Link key={item.id} className='news-card' href={`/news/${item.id}`}>
+            <h2 className='news-title'>{item.title}</h2>
+            <p className='news-desc'>{item.description}</p>
+            <p className='news-date'>{item.date}</p>
+          </Link>
+        ))}
+      </div>
+      <BackButton to="/home"/>
     </div>
   );
 };

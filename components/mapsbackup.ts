@@ -7,40 +7,27 @@ import 'leaflet/dist/leaflet.css'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { useEffect, useState } from 'react'
 import './components.css'
+import users from './data-example/dosen'
+import buildings from './data-example/bangunan'
+
+
+
 
 const Map = () => {
     const longitude = 1.41749
     const latitude = 124.98396
-
-    useEffect(() => {
-        fetch('http://localhost:5500/api/buildings')
-            .then(res => res.json())
-            .then(data => setBuildings(data))
-            .catch(err => console.log(err)
-        )
-    
-        fetch('http://localhost:5500/api/lecturers')
-            .then(res => res.json())
-            .then(data => setLecturers(data))
-            .catch(err => console.log(err)
-        )
-    }, [])
-
-    const [buildings, setBuildings] = useState([])
-    const [lecturers, setLecturers] = useState([])
     const [searchTerm, setSearchTerm] = useState('')
-    const [searchType, setSearchType] = useState<'lecturers' | 'buildings' | 'all'>('lecturers')
-    const [markerMap, setMarkerMap] = useState<(Lecturer | Building)[]>([])
+    const [markerMap, setMarkerMap] = useState<(User | Building)[]>([])
+    const [searchType, setSearchType] = useState<'users' | 'buildings' | 'all'>('users')
 
     
     const handleShowAll = () => {
-        setMarkerMap([...lecturers, ...buildings])
-        setSearchType('all')
+        setMarkerMap([...users, ...buildings])
     }
 
     const handleShowAllUsers = () => {
-        setSearchType('lecturers')
-        setMarkerMap(lecturers)
+        setSearchType('users')
+        setMarkerMap(users)
     }
 
     const handleShowAllBuildings = () => {
@@ -48,30 +35,26 @@ const Map = () => {
         setMarkerMap(buildings)
     }
 
-    useEffect(() => {
-        handleShowAll()
-    }, [])
-
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (searchType === 'all') {
             setSearchTerm(event.target.value)
-            const filteredAll = [...lecturers, ...buildings].filter(item => item.name.toLowerCase().includes(event.target.value.toLowerCase()))
-            setMarkerMap([...filteredAll])
-            console.log(`search type : ${searchType}`)
-        } else if(searchType === 'lecturers'){
+            const filteredAll = [...users, ...buildings].filter(item => item.name.toLowerCase().includes(event.target.value.toLowerCase()))
+            setMarkerMap([...filteredAll])       
+        } else if(searchType === 'users'){
             setSearchTerm(event.target.value)
-            const filteredUsers = lecturers.filter(lecturers => lecturers.name.toLowerCase().includes(event.target.value.toLowerCase()))
+            const filteredUsers = users.filter(user => user.name.toLowerCase().includes(event.target.value.toLowerCase()))
             setMarkerMap([...filteredUsers])
-            console.log(`search type : ${searchType}`)
         }   else if(searchType === 'buildings') {
             setSearchTerm(event.target.value)
             const filteredBuildings = buildings.filter(building => building.name.toLowerCase().includes(event.target.value.toLowerCase()))
             setMarkerMap([...filteredBuildings]) 
-            console.log(`search type : ${searchType}`)
         }
     }
 
-    
+    useEffect(() => {
+        handleShowAll()
+        setSearchType('all')
+    }, [])
 
     return (
         <div>
@@ -113,9 +96,7 @@ const Map = () => {
                     
                     }>
                         <Popup>
-                            <h1>
-                                {item.name}
-                            </h1>
+                            {item.name}
                         </Popup>
                     </Marker>
             ))}
