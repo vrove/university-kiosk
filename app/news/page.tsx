@@ -1,20 +1,32 @@
-import React from 'react';
+'use client'
+
+import React, { useEffect, useState } from 'react';
 import './news.css';
 import BackButton from '@/components/BackButton';
-import news from '@/components/data-example/berita';
 import Link from 'next/link';
 
 const Page = () => {
-  const reversedNews = news.slice().reverse(); 
+  const [newsItem, setNewsItem] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5500/api/news/')
+      .then(response => response.json())
+      .then(data => setNewsItem(data))
+      .catch(error => console.error('Error:', error));
+  }, []);
+
+  const reversedNews = newsItem.slice().reverse();
 
   return (
     <div>
       <div className='news-container'>
         {reversedNews.map((item) => (
-          <Link key={item.id} className='news-card' href={`/news/${item.id}`}>
-            <h2 className='news-title'>{item.title}</h2>
-            <p className='news-desc'>{item.description}</p>
-            <p className='news-date'>{item.date}</p>
+          <Link key={item.id} href={`/news/${item.id}`}>
+            <div className='news-card'>
+              <h2 className='news-title'>{item.title}</h2>
+              <p className='news-desc'>{item.description}</p>
+              <p className='news-date'>{item.date}</p>
+            </div>
           </Link>
         ))}
       </div>

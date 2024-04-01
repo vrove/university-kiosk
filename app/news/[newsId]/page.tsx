@@ -1,14 +1,30 @@
-import news from '@/components/data-example/berita';
-import './newsDetail.css'
-import BackButton from '@/components/BackButton';
+'use client'
 
-export default function newsDetail ({ params }: {
+import { useState, useEffect } from 'react'
+import './newsDetail.css'
+import BackButton from '@/components/BackButton'
+
+export default function NewsDetail ({ params }: {
     params: {
-        newsId: string;
-    };
+        newsId: string
+    }
 }) {
-    const newsItem = news[parseInt(params.newsId) - 1];
-    const descriptionWithBreaks = { __html: newsItem.description.replace(/\n/g, '<br />') };
+    const [newsItem, setNewsItem] = useState([])
+
+    useEffect(() => {
+        fetch('http://localhost:5500/api/news/' + params.newsId)
+            .then(response => response.json())
+            .then(data => setNewsItem(data))
+            .catch(error => console.error('Error:', error))
+    }, [params.newsId])
+
+    if (!newsItem) {
+        return <div className='load-news'><a>Loading...</a></div>
+    }
+
+    const descriptionWithBreaks = newsItem.description 
+    ? { __html: newsItem.description.replace(/\n/g, '<br />') } 
+    : { __html: '' }
 
     return (
         <div className='detail-container'>
@@ -17,5 +33,5 @@ export default function newsDetail ({ params }: {
             <p className='detail-date'>{newsItem.date}</p>
             <BackButton to="/news"/>
         </div>
-    );
+    )
 }

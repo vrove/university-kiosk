@@ -9,10 +9,11 @@ datasource db {
 }
 
 model buildings {
-  id        Int    @id @db.SmallInt
+  id        Int     @id @db.SmallInt
   name      String
-  longitude Float? @db.Real
-  latitude  Float? @db.Real
+  longitude Float?  @db.Real
+  latitude  Float?  @db.Real
+  links     String?
 }
 
 model lecturers {
@@ -21,4 +22,11 @@ model lecturers {
   name      String?
   longitude Float?  @db.Real
   latitude  Float?  @db.Real
+}
+
+model news {
+  title       String
+  description String
+  date        DateTime @default(dbgenerated("(now() AT TIME ZONE 'GMT+8'::text)")) @db.Timestamptz(6)
+  id          Int      @id @default(autoincrement())
 }

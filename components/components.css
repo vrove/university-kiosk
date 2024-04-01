@@ -93,6 +93,20 @@
     margin-right: 5px;
 }
 
+.marker-name{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--main-text);
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.build-button{
+    font-size: 1rem;
+    font-weight: bold;
+    align-items: center;
+}
+
 @media screen and (min-height: 821px) {
     :root {
         --main-text: #591e78;
