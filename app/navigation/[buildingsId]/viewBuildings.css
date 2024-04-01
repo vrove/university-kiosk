@@ -1,0 +1,11 @@
+.build-view-name{
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.build-view-img{
+    position: relative;
+}
