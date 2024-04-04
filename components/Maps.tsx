@@ -16,19 +16,20 @@ const Map = () => {
     useEffect(() => {
         fetch('http://localhost:5500/api/lecturers')
             .then(response => response.json())
-            .then(data => setLecturers(data.map(item => ({ ...item, type: 'lecturer' }))))
+            .then(data => setLecturers(data.map((item: any) => ({ ...item, type: 'lecturer' }))))
             .catch(error => console.error('Error:', error));
     }, []);
     
     useEffect(() => {
         fetch('http://localhost:5500/api/buildings')
             .then(response => response.json())
-            .then(data => setBuildings(data.map(item => ({ ...item, type: 'building' }))))
+            .then(data => setBuildings(data.map((item: any) => ({ ...item, type: 'building' }))))
             .catch(error => console.error('Error:', error));
     }, []);
 
     const [buildings, setBuildings] = useState([])
     const [lecturers, setLecturers] = useState([])
+
     const [searchTerm, setSearchTerm] = useState('')
     const [searchType, setSearchType] = useState<'lecturers' | 'buildings' | 'all'>('lecturers')
     const [markerMap, setMarkerMap] = useState<(Lecturer | Building)[]>([])
