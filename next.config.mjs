@@ -3,14 +3,13 @@ const nextConfig = {
   images: {
     domains: ['cedhtinrtjfsqsqyzqsv.supabase.co'],
   },
-  async redirects() {
+  async rewrites() {
     return [
       {
-        source: '/about',
-        destination: '/',
-        permanent: true,
+        source: "/",
+        destination: "/home",
       },
-    ]
+    ];
   },
 };
 
