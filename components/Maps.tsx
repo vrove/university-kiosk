@@ -36,6 +36,7 @@ const Map = () => {
     
     useEffect(() => {
         setMarkerMap([...lecturers, ...buildings]);
+        setSearchType('all')
     }, [lecturers, buildings]);
 
     const handleShowAll = () => {
@@ -63,12 +64,12 @@ const Map = () => {
             console.log(`search type : ${searchType}`)
         } else if(searchType === 'lecturers'){
             setSearchTerm(event.target.value)
-            const filteredUsers = lecturers.filter(lecturers => lecturers.name.toLowerCase().includes(event.target.value.toLowerCase()))
+            const filteredUsers = lecturers.filter((lecturer: Lecturer) => lecturer.name && lecturer.name.toLowerCase().includes(event.target.value?.toLowerCase()))
             setMarkerMap([...filteredUsers])
             console.log(`search type : ${searchType}`)
         }   else if(searchType === 'buildings') {
             setSearchTerm(event.target.value)
-            const filteredBuildings = buildings.filter(building => building.name.toLowerCase().includes(event.target.value.toLowerCase()))
+            const filteredBuildings = buildings.filter((building: Building) => building.name && building.name.toLowerCase().includes(event.target.value?.toLowerCase()))
             setMarkerMap([...filteredBuildings]) 
             console.log(`search type : ${searchType}`)
         }
