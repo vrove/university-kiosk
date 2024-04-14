@@ -1,6 +1,5 @@
 'use client'
 
-import L from 'leaflet'
 import MarkerIcon from '../public/marker-icon.png'
 import MarkerShadow from '../node_modules/leaflet/dist/images/marker-shadow.png'
 import 'leaflet/dist/leaflet.css'
@@ -9,10 +8,21 @@ import { useEffect, useState } from 'react'
 import './components.css'
 import Link from 'next/link'
 
+
+
 const Map = () => {
+    let L: any;
+    if (typeof window !== 'undefined') {
+        L = require('leaflet');
+    }
+
+    if(typeof window !== "undefined"){
+        const height = window.innerHeight
+        const width = window.innerWidth
+    }     
+
     const longitude = 1.41749
     const latitude = 124.98396
-
     useEffect(() => {
         fetch('http://localhost:5500/api/lecturers')
             .then(response => response.json())
@@ -30,11 +40,29 @@ const Map = () => {
     const [buildings, setBuildings] = useState([])
     const [lecturers, setLecturers] = useState([])
 
+    type Lecturer = {
+        id: number;
+        name: string;
+        longitude: number;
+        latitude: number;
+        noHouse: string;
+        type: string;
+    }
+
+    type Building = {
+        id: number;
+        name: string;
+        longitude: number;
+        latitude: number;
+        noHouse: string;
+        type: string;
+    }
+
     const [searchTerm, setSearchTerm] = useState('')
     const [searchType, setSearchType] = useState<'lecturers' | 'buildings' | 'all'>('lecturers')
     const [markerMap, setMarkerMap] = useState<(Lecturer | Building)[]>([])
 
-    
+
     useEffect(() => {
         setMarkerMap([...lecturers, ...buildings]);
         setSearchType('all')
@@ -58,7 +86,7 @@ const Map = () => {
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (searchType === 'all') {
             setSearchTerm(event.target.value)
-            const filteredAll = [...lecturers, ...buildings].filter(item => 
+            const filteredAll = [...lecturers, ...buildings].filter((item: Lecturer | Building) => 
                 item.name && item.name.toLowerCase().includes(event.target.value.toLowerCase())
             );
             setMarkerMap([...filteredAll])
