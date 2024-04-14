@@ -4,12 +4,20 @@ import { useState, useEffect } from 'react'
 import './newsDetail.css'
 import BackButton from '@/components/BackButton'
 
+type setNewsType = {
+    id: number;
+    title: string;
+    description: string;
+    date: string;
+  }
+
 export default function NewsDetail ({ params }: {
     params: {
         newsId: string
     }
 }) {
-    const [newsItem, setNewsItem] = useState([])
+
+    const [newsItem, setNewsItem] = useState<setNewsType>()
 
     useEffect(() => {
         fetch('http://localhost:5500/api/news/' + params.newsId)

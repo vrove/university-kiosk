@@ -5,8 +5,15 @@ import './news.css';
 import BackButton from '@/components/BackButton';
 import Link from 'next/link';
 
+type setNewsType = {
+  id: number;
+  title: string;
+  description: string;
+  date: string;
+}
+
 const Page = () => {
-  const [newsItem, setNewsItem] = useState([]);
+  const [newsItem, setNewsItem] = useState<setNewsType[]>([]);
 
   useEffect(() => {
     fetch('http://localhost:5500/api/news/')
