@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import './news.css';
 import BackButton from '@/components/BackButton';
 import Link from 'next/link';
+
 import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
