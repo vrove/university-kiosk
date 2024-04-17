@@ -7,8 +7,12 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { useEffect, useState } from 'react'
 import './components.css'
 import Link from 'next/link'
+import { createClient } from '@supabase/supabase-js'
 
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
+const supabase = createClient(supabaseUrl ?? '', supabaseKey ?? '')
 
 const Map = () => {
     let L: any;
@@ -23,22 +27,34 @@ const Map = () => {
 
     const longitude = 1.41749
     const latitude = 124.98396
-    useEffect(() => {
-        fetch('http://localhost:5500/api/lecturers')
-            .then(response => response.json())
-            .then(data => setLecturers(data.map((item: any) => ({ ...item, type: 'lecturer' }))))
-            .catch(error => console.error('Error:', error));
-    }, []);
     
-    useEffect(() => {
-        fetch('http://localhost:5500/api/buildings')
-            .then(response => response.json())
-            .then(data => setBuildings(data.map((item: any) => ({ ...item, type: 'building' }))))
-            .catch(error => console.error('Error:', error));
-    }, []);
+    const [lecturers, setLecturers] = useState<Lecturer[]>([])
 
-    const [buildings, setBuildings] = useState([])
-    const [lecturers, setLecturers] = useState([])
+    useEffect(() => {
+        const fetchLecturers = async () => {
+            const { data, error } = await supabase
+                .from('lecturers')
+                .select('*')
+            if (error) console.error('Error:', error)
+            else setLecturers(data.map((item: Lecturer) => ({ ...item, type: 'lecturer' })) as Lecturer[])
+        }
+        fetchLecturers()
+    }, [])
+    
+    const [buildings, setBuildings] = useState<Building[]>([])
+
+    useEffect(() => {
+        const fetchBuildings = async () => {
+            const { data, error } = await supabase
+                .from('buildings')
+                .select('*')
+            if (error) console.error('Error:', error)
+            else setBuildings(data.map((item: Building) => ({ ...item, type: 'building' })) as Building[])
+        }
+        fetchBuildings()
+    }, [])                
+
+    
 
     type Lecturer = {
         id: number;

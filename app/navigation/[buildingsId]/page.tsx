@@ -4,6 +4,12 @@ import BackButton from "@/components/BackButton"
 import Image from 'next/image'
 import { useEffect, useState } from "react";
 import './viewBuildings.css'
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+const supabase = createClient(supabaseUrl ?? '', supabaseKey ?? '')
 
 type BuildingType = {
     name: string;
@@ -19,10 +25,15 @@ export default function BuildingView ({params}:
         const [building, setBuilding] = useState<BuildingType | null>(null)
 
         useEffect(() => {
-            fetch('http://localhost:5500/api/buildings/' + params.buildingsId)
-            .then(response => response.json())
-            .then(data => setBuilding(data))
-            .catch(error => console.error('Error:', error))
+            const fetchBuilding = async () => {
+                const { data, error } = await supabase
+                    .from('buildings')
+                    .select('*')
+                    .eq('id', params.buildingsId)
+                if (error) console.error('Error:', error)
+                else setBuilding(data[0] as BuildingType)
+            }
+            fetchBuilding()
         }, [params.buildingsId])
 
         return(
