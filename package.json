@@ -12,7 +12,7 @@
     "@prisma/client": "^5.11.0",
     "@supabase/auth-helpers-nextjs": "^0.9.0",
     "@supabase/ssr": "^0.1.0",
-    "@supabase/supabase-js": "^2.40.0",
+    "@supabase/supabase-js": "^2.42.4",
     "cors": "^2.8.5",
     "express": "^4.19.0",
     "leaflet": "^1.9.4",

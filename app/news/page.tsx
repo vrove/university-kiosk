@@ -4,6 +4,11 @@ import React, { useEffect, useState } from 'react';
 import './news.css';
 import BackButton from '@/components/BackButton';
 import Link from 'next/link';
+import { createClient } from '@supabase/supabase-js'
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+const supabase = createClient(supabaseUrl ?? '', supabaseKey ?? '')
 
 type setNewsType = {
   id: number;
@@ -16,11 +21,15 @@ const Page = () => {
   const [newsItem, setNewsItem] = useState<setNewsType[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:5500/api/news/')
-      .then(response => response.json())
-      .then(data => setNewsItem(data))
-      .catch(error => console.error('Error:', error));
-  }, []);
+    const fetchNews = async () => {
+      const { data, error } = await supabase
+        .from('news')
+        .select('*')
+      if (error) console.error('Error:', error)
+      else setNewsItem(data as setNewsType[])
+    }
+    fetchNews()
+  }, [])
 
   const reversedNews = newsItem.slice().reverse();
 
