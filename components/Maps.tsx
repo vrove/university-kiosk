@@ -54,6 +54,26 @@ const Map = () => {
         fetchBuildings()
     }, [])                
 
+    type Kiosk = {
+        id: number;
+        name: string;
+        longitude: number;
+        latitude: number;
+        type: string;
+    }
+
+    const [kiosk, setKiosk] = useState<Kiosk[]>([])
+
+    useEffect(() => {
+        const fetchKiosk = async () => {
+            const { data, error } = await supabase
+                .from('kiosk')
+                .select('*')
+            if (error) console.error('Error:', error)
+            else setKiosk(data.map((item: Kiosk) => ({ ...item, type: 'kiosk' })) as Kiosk[])
+        }
+        fetchKiosk()
+    }, [])
     
 
     type Lecturer = {
@@ -148,28 +168,48 @@ const Map = () => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-{markerMap.map((item, index) => (
-    <Marker key={index} position={[item.longitude, item.latitude]} icon={
-        new L.Icon({
-            iconUrl: MarkerIcon.src,
-            iconRetinaUrl: MarkerIcon.src,
-            iconSize: [25, 41],
-            iconAnchor: [12.5, 41],
-            popupAnchor: [0, -41],
-            shadowUrl: MarkerShadow.src,
-            shadowSize: [41, 41],
-        })
-    }>
-        <Popup>
-            <h1 className='marker-name'>
-                {item.type === 'lecturer' && item.noHouse}
-                <br />
-                {item.name}
-            </h1>
-            {item.type === 'building' && <Link className='build-button' href={`navigation/${item.id}`}>View Details</Link>}
-        </Popup>
-    </Marker>
-))}
+                {markerMap.map((item, index) => (
+                    <Marker key={index} position={[item.longitude, item.latitude]} icon={
+                        new L.Icon({
+                            iconUrl: MarkerIcon.src,
+                            iconRetinaUrl: MarkerIcon.src,
+                            iconSize: [25, 41],
+                            iconAnchor: [12.5, 41],
+                            popupAnchor: [0, -41],
+                            shadowUrl: MarkerShadow.src,
+                            shadowSize: [41, 41],
+                        })
+                    }>
+                        <Popup>
+                            <h1 className='marker-name'>
+                                {item.type === 'lecturer' && item.noHouse}
+                                <br />
+                                {item.name}
+                            </h1>
+                            {item.type === 'building' && <Link className='build-button' href={`navigation/${item.id}`}>View Details</Link>}
+                        </Popup>
+                    </Marker>
+                ))}
+
+                {kiosk.map((item, index) => (
+                    <Marker key={index} position={[item.longitude, item.latitude]} icon={
+                        new L.Icon({
+                            iconUrl: '/kiosk-marker.png',
+                            iconRetinaUrl: '/kiosk-marker.png',
+                            iconSize: [25, 41],
+                            iconAnchor: [12.5, 41],
+                            popupAnchor: [0, -41],
+                            shadowUrl: MarkerShadow.src,
+                            shadowSize: [41, 41],
+                        })
+                    }>
+                        <Popup>
+                            <h1 className='marker-name'>
+                                {item.name}
+                            </h1>
+                        </Popup>
+                    </Marker>
+                ))}
 
             </MapContainer>
 

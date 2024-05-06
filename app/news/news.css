@@ -5,17 +5,29 @@
 .news {
     color: yellow;
 }
-
+.main-container{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start; /* Updated */
+    justify-content: center;
+    padding-top: 3%;
+}
 .news-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: left;
+    align-items: flex-start; /* Updated */
     padding-top: 3%;
     margin-left: 5rem;
-    margin-right: 5rem;
-    
 }
 
+.announce-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Updated */
+    padding-top: 10%;
+    margin-right: 5rem;
+    flex-basis: 20%; /* Added */
+}
 .news-card {
     margin: 1rem;
     padding: 1.5rem;
@@ -23,8 +35,8 @@
     border-radius: 25px;
     border-width: 5px;
     border-color: var(--main-text);
-    width: 250px; /* Set the width to your desired value */
-    height: 200px; /* Set the height to your desired value */
+    width: 200px; /* Set the width to your desired value */
+    height: 250px; /* Set the height to your desired value */
 }
 
 .news-card .news-date {
@@ -47,7 +59,7 @@
 
 .news-desc {
     position: relative;
-    max-height: 80px;
+    max-height: 150px;
     overflow: hidden;
 }
 
@@ -59,4 +71,31 @@
     width: 100%;
     height: 50%; /* Adjust based on your needs */
     background: linear-gradient(to bottom, transparent, white);
+}
+.announce-card {
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+    display: inline-block;
+    border-radius: 25px;    
+    border-width: 2px;
+    border-color: var(--main-text);
+    width: 250px;
+}
+
+.announce-date {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: var(--main-text);
+}
+
+.announce-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--main-text);
+    position: relative;
+    max-height: 25px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }

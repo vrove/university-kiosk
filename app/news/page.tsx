@@ -18,6 +18,13 @@ type setNewsType = {
   date: string;
 }
 
+type setAnnounceType = {
+  id: number;
+  title: string;
+  description: string;
+  date: string;
+}
+
 const Page = () => {
   const [newsItem, setNewsItem] = useState<setNewsType[]>([]);
 
@@ -32,10 +39,24 @@ const Page = () => {
     fetchNews()
   }, [])
 
+  const [announceItem, setAnnounceItem] = useState<setAnnounceType[]>([]);
+
+  useEffect(() => {
+    const fetchAnnouncement = async () => {
+      const { data, error } = await supabase
+        .from('announcement')
+        .select('*')
+      if (error) console.error('Error:', error)
+      else setAnnounceItem(data as setAnnounceType[])
+    }
+    fetchAnnouncement()
+  }, [])
+
+
   const reversedNews = newsItem.slice().reverse();
 
   return (
-    <div>
+    <div className='main-container'>
       <div className='news-container'>
         {reversedNews.map((item) => (
           <Link key={item.id} href={`/news/${item.id}`}>
@@ -47,6 +68,16 @@ const Page = () => {
           </Link>
         ))}
       </div>
+
+      <div className='announce-container'>
+      {announceItem.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((item) => (
+        <div key={item.id} className='announce-card'>
+          <h2 className='announce-title'>{item.title}</h2>
+          <p className='announce-desc'>{item.description}</p>
+          <p className='announce-date'>{item.date}</p>
+      </div>
+      ))}
+    </div>
       <BackButton to="/home"/>
     </div>
   );

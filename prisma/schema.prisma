@@ -11,8 +11,8 @@ datasource db {
 model buildings {
   id        Int     @id @db.SmallInt
   name      String
-  longitude Float?  @db.Real
-  latitude  Float?  @db.Real
+  longitude Float?
+  latitude  Float?
   links     String?
 }
 
@@ -20,13 +20,29 @@ model lecturers {
   id        Int     @id @db.SmallInt
   noHouse   String?
   name      String?
-  longitude Float?  @db.Real
-  latitude  Float?  @db.Real
+  longitude Float?
+  latitude  Float?
 }
 
 model news {
   title       String
   description String
-  date        DateTime @default(dbgenerated("(now() AT TIME ZONE 'GMT+8'::text)")) @db.Timestamptz(6)
+  date        DateTime @db.Date
   id          Int      @id @default(autoincrement())
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model announcement {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String?
+  date        DateTime? @db.Date
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model kiosk {
+  id        BigInt @id @default(autoincrement())
+  title     String
+  longitude Float?
+  latitude  Float?
 }
